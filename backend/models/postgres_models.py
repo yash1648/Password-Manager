@@ -1,8 +1,9 @@
 from sqlalchemy import create_engine, Column, String, Text, DateTime, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
 import uuid
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
