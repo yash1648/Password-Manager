@@ -4,7 +4,7 @@ The backend for SecureVault is built with Flask and provides a RESTful API for t
 
 ## 🏗️ Architecture
 
-`
+```
         ┌──────────────────────────┐
         │       Flask API          │
         │      (app.py)            │
@@ -26,7 +26,7 @@ The backend for SecureVault is built with Flask and provides a RESTful API for t
 │   PostgreSQL     │           │     MongoDB      │
 │   Repository     │           │    Repository    │
 └──────────────────┘           └──────────────────┘
-`
+```
 
 ---
 
@@ -39,7 +39,7 @@ The backend for SecureVault is built with Flask and provides a RESTful API for t
 
 ### Installation
 
-`ash
+```bash
 # Clone the repository
 git clone https://github.com/jaykumarpatil314-ux/Password-Manager.git
 cd Password-Manager/backend
@@ -57,7 +57,7 @@ cp .env.example .env
 
 # Run the server
 python app.py
-`
+```
 
 The server will start at http://localhost:5000
 
@@ -86,7 +86,7 @@ The server will start at http://localhost:5000
 
 ### Example Request
 
-`ash
+```bash
 # Register a new user
 curl -X POST http://localhost:5000/api/auth/register \
   -H "Content-Type: application/json" \
@@ -95,7 +95,7 @@ curl -X POST http://localhost:5000/api/auth/register \
     "email": "user@example.com",
     "master_password": "StrongPassword123!"
   }'
-`
+```
 
 ---
 
@@ -103,7 +103,7 @@ curl -X POST http://localhost:5000/api/auth/register \
 
 Create a .env file in the backend directory:
 
-`
+```
 # Flask Configuration
 FLASK_ENV=development
 SECRET_KEY=your-secret-key-here
@@ -122,25 +122,25 @@ MONGODB_URI=mongodb://localhost:27017/password_manager
 
 # CORS Configuration
 CORS_ORIGINS=chrome-extension://your-extension-id
-`
+```
 
 ---
 
 ## 🧪 Testing
 
-`ash
+```bash
 # Run tests
 python -m pytest test_all.py
 
 # With coverage report
 pytest --cov=. --cov-report=term
-`
+```
 
 ---
 
 ## 📦 Project Structure
 
-`
+```
 backend/
 ├── app.py                # Main Flask application
 ├── auth.py               # Authentication logic
@@ -159,7 +159,7 @@ backend/
 └── models/               # Database models
     ├── __init__.py
     └── postgres_models.py      # SQLAlchemy models
-`
+```
 
 ---
 
