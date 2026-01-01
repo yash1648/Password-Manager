@@ -1,13 +1,43 @@
 #!/bin/bash
 
-# Start PostgreSQL container
-docker start password-manager-db
+cd backend/
+echo "Initializing the environment..."
 
-# Start Flask app container
-docker start passwordmanager-app
+source venv/bin/activate
+ENV_FILE=".env"
 
-# Show logs for PostgreSQL container in background
-docker logs -f password-manager-db &
+sleep 2
 
-# Show logs for Flask app container (foreground)
-docker logs -f passwordmanager-app
+echo "Which database you want to proceed with?"
+echo "1. postgresql"
+echo "2. mongodb"
+read choice
+echo "Your choice is $choice"
+
+case $choice in
+  1)
+    DB_TYPE="postgresql"
+    ;;
+  2)
+    DB_TYPE="mongodb"
+    ;;
+  *)
+    echo "Enter valid input"
+    exit 1
+    ;;
+esac
+
+echo "$DB_TYPE"
+
+if grep -q "^DATABASE_TYPE=" "$ENV_FILE"; then
+  sed -i.bak "s|^DATABASE_TYPE=.*|DATABASE_TYPE=$DB_TYPE|" "$ENV_FILE"
+else
+  echo "DATABASE_TYPE=$DB_TYPE" >> "$ENV_FILE"
+fi
+
+rm -f .env.bak
+echo "DATABASE_TYPE set to $DB_TYPE in .env file"
+
+echo "Initializing the backend..."
+sleep 2
+python3 app.py
