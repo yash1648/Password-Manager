@@ -1,51 +1,32 @@
-# 🔐 Password Manager Backend
+# SecureVault Backend
 
-> A secure, zero-knowledge password manager backend built with Python Flask. Seamlessly switch between PostgreSQL and MongoDB with enterprise-grade security.
-
-[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-3.1.2-green.svg)](https://flask.palletsprojects.com/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub](https://img.shields.io/badge/github-repo-green.svg)](https://github.com/jaykumarpatil314-ux/Password-Manager.git)
-
----
-
-## ✨ Features
-
-- 🔐 **Zero-Knowledge Architecture** - Server never sees plaintext passwords
-- 🔄 **Multi-Database Support** - Switch between PostgreSQL and MongoDB seamlessly
-- ☁️ **Cloud-Ready** - Works with MongoDB Atlas, AWS RDS, and more
-- 🔑 **Strong Authentication** - Argon2 password hashing + JWT tokens
-- 🛡️ **Client-Side Encryption** - AES-256-GCM with PBKDF2 key derivation
-- 🌐 **RESTful API** - Clean, well-documented endpoints
-- ⚡ **WebSocket Support** - Real-time sync capabilities (Flask-SocketIO)
-- 🎯 **Repository Pattern** - Clean, maintainable architecture
-- 📊 **Production Ready** - CORS, error handling, connection pooling
-
----
+The backend for SecureVault is built with Flask and provides a RESTful API for the Chrome extension. It supports both PostgreSQL and MongoDB databases.
 
 ## 🏗️ Architecture
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                   Flask Application                      │
-│                       (app.py)                           │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-                       ▼
-              ┌─────────────────────┐
-              │  Database Factory   │
-              │   (db_factory.py)   │
-              │  - Selects DB based │
-              │    on environment   │
-              └──────────┬──────────┘
-                         │
-        ┌────────────────┴────────────────┐
+`
+        ┌──────────────────────────┐
+        │       Flask API          │
+        │      (app.py)            │
+        └────────────┬─────────────┘
+                     │
+              ┌──────▼──────┐
+              │  DB Factory │
+              │(db_factory) │
+              └──────┬──────┘
+                     │
+              ┌──────┴──────────┐
+              │ Selects DB based│
+              │ on environment  │
+              └──────┬──────────┘
+                     │
+        ┌────────────┴────────────────────┐
         ▼                                 ▼
 ┌──────────────────┐           ┌──────────────────┐
 │   PostgreSQL     │           │     MongoDB      │
 │   Repository     │           │    Repository    │
 └──────────────────┘           └──────────────────┘
-```
+`
 
 ---
 
@@ -58,7 +39,7 @@
 
 ### Installation
 
-```bash
+`ash
 # Clone the repository
 git clone https://github.com/jaykumarpatil314-ux/Password-Manager.git
 cd Password-Manager/backend
@@ -76,9 +57,9 @@ cp .env.example .env
 
 # Run the server
 python app.py
-```
+`
 
-The server will start at `http://localhost:5000`
+The server will start at http://localhost:5000
 
 ---
 
@@ -88,24 +69,24 @@ The server will start at `http://localhost:5000`
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| POST | `/api/auth/register` | Register a new user |
-| POST | `/api/auth/login` | Login and get JWT token |
-| POST | `/api/auth/refresh` | Refresh JWT token |
-| POST | `/api/auth/logout` | Logout and invalidate token |
+| POST | /api/auth/register | Register a new user |
+| POST | /api/auth/login | Login and get JWT token |
+| POST | /api/auth/refresh | Refresh JWT token |
+| POST | /api/auth/logout | Logout and invalidate token |
 
 ### Password Management Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| GET | `/api/passwords` | Get all passwords (encrypted) |
-| GET | `/api/passwords/:id` | Get a specific password |
-| POST | `/api/passwords` | Create a new password |
-| PUT | `/api/passwords/:id` | Update a password |
-| DELETE | `/api/passwords/:id` | Delete a password |
+| GET | /api/passwords | Get all passwords (encrypted) |
+| GET | /api/passwords/:id | Get a specific password |
+| POST | /api/passwords | Create a new password |
+| PUT | /api/passwords/:id | Update a password |
+| DELETE | /api/passwords/:id | Delete a password |
 
 ### Example Request
 
-```bash
+`ash
 # Register a new user
 curl -X POST http://localhost:5000/api/auth/register \
   -H "Content-Type: application/json" \
@@ -114,15 +95,15 @@ curl -X POST http://localhost:5000/api/auth/register \
     "email": "user@example.com",
     "master_password": "StrongPassword123!"
   }'
-```
+`
 
 ---
 
 ## 🔧 Configuration
 
-Create a `.env` file in the backend directory:
+Create a .env file in the backend directory:
 
-```
+`
 # Flask Configuration
 FLASK_ENV=development
 SECRET_KEY=your-secret-key-here
@@ -141,32 +122,32 @@ MONGODB_URI=mongodb://localhost:27017/password_manager
 
 # CORS Configuration
 CORS_ORIGINS=chrome-extension://your-extension-id
-```
+`
 
 ---
 
 ## 🧪 Testing
 
-```bash
+`ash
 # Run tests
-python -m pytest test_backend.py
+python -m pytest test_all.py
 
 # With coverage report
 pytest --cov=. --cov-report=term
-```
+`
 
 ---
 
 ## 📦 Project Structure
 
-```
+`
 backend/
 ├── app.py                # Main Flask application
 ├── auth.py               # Authentication logic
 ├── config.py             # Configuration settings
 ├── crypto_utils.py       # Cryptography utilities
 ├── requirements.txt      # Python dependencies
-├── test_backend.py       # Test suite
+├── test_all.py           # Test suite
 │
 ├── database/             # Database abstraction
 │   ├── __init__.py
@@ -178,7 +159,7 @@ backend/
 └── models/               # Database models
     ├── __init__.py
     └── postgres_models.py      # SQLAlchemy models
-```
+`
 
 ---
 
